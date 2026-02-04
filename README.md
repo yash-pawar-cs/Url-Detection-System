@@ -15,3 +15,6 @@ This project was developed as part of an academic curriculum to understand how w
 - Python
 - WEb framework (Flask/Django)
 - HTML, CSS
+
+## Screenshots
+![URL Result] (screenshots/URl Result.png)
