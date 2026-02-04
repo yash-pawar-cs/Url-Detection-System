@@ -17,4 +17,5 @@ This project was developed as part of an academic curriculum to understand how w
 - HTML, CSS
 
 ## Screenshots
+![Homepage] (screenshots/Homepage.png)
 ![URL Result] (screenshots/URl Result.png)
