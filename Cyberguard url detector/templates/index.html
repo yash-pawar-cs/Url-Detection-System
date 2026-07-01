@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard URL Checker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("/static/img.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav {
+            width: 100%;
+            padding: 1rem;
+            background-color: #111827;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .theme-select {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        select {
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 2rem;
+            margin-top: 1rem;
+            width: 350px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 0.6rem;
+            width: 80%;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 0.6rem 1rem;
+            border: none;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .safe {
+            background-color: #10b981;
+        }
+
+        .danger {
+            background-color: #ef4444;
+        }
+
+        canvas {
+            margin: 1rem auto;
+            display: block;
+            max-width: 180px;
+            max-height: 180px;
+        }
+
+        footer {
+            margin-top: 3rem;
+            background-color: #111827;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .project-info {
+           margin: 2rem auto;
+           max-width: 600px;
+           text-align: center;
+           background: rgba(255, 255, 255, 0.05);
+           padding: 1.5rem;
+           border-radius: 12px;
+           backdrop-filter: blur(6px);
+           -webkit-backdrop-filter: blur(6px);
+           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-info p {
+           color: #ffffffcc;
+           font-size: 1rem;
+           margin-top: 1rem;
+        }
+
+        .info-image {
+           width: 100%;
+           max-width: 400px;
+           height: auto;
+           border-radius: 10px;
+           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+    </style>
+</head>
+<body>
+    <nav>🔐 URL Checker</nav>
+
+    <div class="theme-select">
+        <label for="theme">🎨 Select Theme:</label>
+        <select id="theme" onchange="switchTheme(this.value)">
+            <option value="img.jpg">Tech Grid</option>
+            <option value="matrix.jpg">Matrix Code</option>
+            <option value="cyberpunk.jpg">Cyberpunk Glow</option>
+        </select>
+    </div>
+
+    <div class="card">
+        <h1>🔍 URL Safety Checker</h1>
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enter URL" required>
+            <br>
+            <button type="submit">Check</button>
+        </form>
+
+        {% if result %}
+            <div class="result {{ result_class }}">
+                {{ result }}
+            </div>
+        {% endif %}
+    </div>
+
+    <canvas id="safetyChart" width="180" height="180"></canvas>
+    
+    <div class="project-info">
+    <img src="/static/1.jpeg" alt="Project Overview" class="info-image">
+    <p>
+        🚀 <strong>Project Overview:</strong> This system analyzes URLs to detect phishing, malware, or scam threats using advanced ML algorithms. It ensures safe browsing by providing instant feedback on website trustworthiness.
+    </p>
+    </div>
+
+    <footer>
+        🔎 URL detection helps prevent phishing, malware, and scam threats.  
+        <br>Essential for digital safety in modern browsing.
+    </footer>
+
+    <script>
+      const ctx = document.getElementById('safetyChart').getContext('2d');
+      const chartData = {{ chart_data | tojson }};
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Safe', 'Suspicious'],
+          datasets: [{
+            data: chartData,
+            backgroundColor: ['#00cc99', '#ff3333'],
+          }]
+        }
+      });
+        // Theme switching
+        function switchTheme(file) {
+            document.body.style.backgroundImage = `url('/static/${file}')`;
+        }
+    </script>
+</body>
+</html>
