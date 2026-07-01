@@ -16,6 +16,4 @@ This project was developed as part of an academic curriculum to understand how w
 - WEb framework (Flask/Django)
 - HTML, CSS
 
-## Screenshots
-![Homepage] (screenshots/Homepage.png)
-![URL Result] (screenshots/URl Result.png)
+
